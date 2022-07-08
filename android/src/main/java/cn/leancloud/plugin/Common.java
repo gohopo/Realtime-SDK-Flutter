@@ -1,21 +1,21 @@
 package cn.leancloud.plugin;
 
 
-import cn.leancloud.im.v2.callback.LCIMConversationIterableResult;
+import cn.leancloud.im.v2.callback.AVIMConversationIterableResult;
 import cn.leancloud.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.leancloud.LCException;
+import cn.leancloud.AVException;
 import cn.leancloud.im.Signature;
-import cn.leancloud.im.v2.LCIMClient;
-import cn.leancloud.im.v2.LCIMConversation;
-import cn.leancloud.im.v2.LCIMException;
-import cn.leancloud.im.v2.LCIMMessage;
-import cn.leancloud.im.v2.LCIMMessageInterval;
-import cn.leancloud.im.v2.LCIMMessageOption;
-import cn.leancloud.im.v2.LCIMMessageInterval.MessageIntervalBound;
+import cn.leancloud.im.v2.AVIMClient;
+import cn.leancloud.im.v2.AVIMConversation;
+import cn.leancloud.im.v2.AVIMException;
+import cn.leancloud.im.v2.AVIMMessage;
+import cn.leancloud.im.v2.AVIMMessageInterval;
+import cn.leancloud.im.v2.AVIMMessageOption;
+import cn.leancloud.im.v2.AVIMMessageInterval.AVIMMessageIntervalBound;
 import cn.leancloud.utils.StringUtil;
 import io.flutter.plugin.common.MethodCall;
 
@@ -176,17 +176,17 @@ public class Common {
   }
 
   public static Map<String, Object> wrapException(int errorCode, String message) {
-    LCException exception = new LCException(errorCode, message);
+    AVException exception = new AVException(errorCode, message);
     return wrapException(exception);
   }
 
-  public static Map<String, Object> wrapException(LCException ex) {
+  public static Map<String, Object> wrapException(AVException ex) {
     if (null == ex) {
       return new HashMap<>();
     }
     Map<String, Object> error = new HashMap<>();
-    if (ex instanceof LCIMException) {
-      error.put("code", String.valueOf(((LCIMException) ex).getAppCode()));
+    if (ex instanceof AVIMException) {
+      error.put("code", String.valueOf(((AVIMException) ex).getAppCode()));
     } else {
       error.put("code", String.valueOf(ex.getCode()));
     }
@@ -221,7 +221,7 @@ public class Common {
     return response;
   }
 
-  public static Map<String, Object> wrapClient(LCIMClient client) {
+  public static Map<String, Object> wrapClient(AVIMClient client) {
     HashMap<String, Object> result = new HashMap<>();
     if (null != client) {
       result.put("clientId", client.getClientId());
@@ -229,7 +229,7 @@ public class Common {
     return result;
   }
 
-  public static Map<String, Object> wrapMessage(LCIMMessage message) {
+  public static Map<String, Object> wrapMessage(AVIMMessage message) {
     Map<String, Object> result = new HashMap<>();
     if (null == message) {
       return result;
@@ -239,19 +239,19 @@ public class Common {
     return result;
   }
 
-  public static LCIMMessage parseMessage(Map<String, Object> rawData) {
+  public static AVIMMessage parseMessage(Map<String, Object> rawData) {
     if (null == rawData) {
       return null;
     }
-    LCIMMessage message = LCIMMessage.parseJSON(rawData);
+    AVIMMessage message = AVIMMessage.parseJSON(rawData);
     return message;
   }
 
-  public static LCIMMessageOption parseMessageOption(Map<String, Object> data) {
+  public static AVIMMessageOption parseMessageOption(Map<String, Object> data) {
     if (null == data || data.isEmpty()) {
       return null;
     }
-    LCIMMessageOption option = new LCIMMessageOption();
+    AVIMMessageOption option = new AVIMMessageOption();
     if (data.containsKey("will")) {
       option.setWill((boolean) data.get("will"));
     }
@@ -260,7 +260,7 @@ public class Common {
     }
     if (data.containsKey("priority")) {
       int priority = (int) data.get("priority");
-      option.setPriority(LCIMMessageOption.MessagePriority.getProiority(priority));
+      option.setPriority(AVIMMessageOption.MessagePriority.getProiority(priority));
     }
     if (data.containsKey("pushData")) {
       option.setPushDataEx((Map<String, Object>) data.get("pushData"));
@@ -268,17 +268,17 @@ public class Common {
     return option;
   }
 
-  public static MessageIntervalBound parseMessageIntervalBound(Map<String, Object> data) {
+  public static AVIMMessageIntervalBound parseAVIMMessageIntervalBound(Map<String, Object> data) {
     if (null == data) {
       return null;
     }
     String messageId = (String) data.get("id");
     long timestamp = (long) data.get("timestamp");
     boolean closed = (boolean) data.get("close");
-    return LCIMMessageInterval.createBound(messageId, timestamp, closed);
+    return AVIMMessageInterval.createBound(messageId, timestamp, closed);
   }
 
-  public static Map<String, Object> wrapConversation(LCIMConversation conversation) {
+  public static Map<String, Object> wrapConversation(AVIMConversation conversation) {
     Map<String, Object> result = new HashMap<>();
     if (null == conversation) {
       return result;
