@@ -193,7 +193,8 @@ class Message with _Utilities {
     stringContent = data['msg'];
     binaryContent = data['binaryMsg'];
     if (this is TypedMessage) {
-      (this as TypedMessage)._rawData = data['typeMsgData'];
+      final Map? typeMsgData = data['typeMsgData'];
+      if(typeMsgData!=null) (this as TypedMessage)._rawData = typeMsgData;
     }
   }
 }

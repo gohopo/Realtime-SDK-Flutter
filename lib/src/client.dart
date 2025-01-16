@@ -66,7 +66,7 @@ class _Bridge with _Utilities {
           break;
         case 'onSignSessionOpen':
           if (client._openSignatureHandler != null) {
-            final Signature sign = await client._openSignatureHandler!(
+            final Signature sign = await client._openSignatureHandler(
               client: client,
             );
             return {'sign': sign._toMap()};
@@ -81,7 +81,7 @@ class _Bridge with _Utilities {
                 conversationID: conversationID,
               );
             }
-            final Signature sign = await client._conversationSignatureHandler!(
+            final Signature sign = await client._conversationSignatureHandler(
               client: client,
               conversation: conversation,
               targetIDs: args['targetIds'],

@@ -1,11 +1,11 @@
 name: leancloud_official_plugin
 description: An official flutter plugin for LeanCloud real-time message service based on LeanCloud-Swift-SDK and LeanCloud-Java-SDK.
-version: 1.0.1
-homepage: https://leancloud.cn
+version: 1.0.2
+homepage: https://github.com/gohopo/Realtime-SDK-Flutter
+publish_to: none
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
